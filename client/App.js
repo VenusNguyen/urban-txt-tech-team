@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import 'react-native-gesture-handler';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
+
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { app } from './firebaseConfig';
 
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
@@ -10,46 +15,55 @@ import Test from './screens/Test'
 import Colors from './constants/Colors';
 import SignupScreen from './screens/SignupScreen';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
 
-  const [isSignedIn, setIsSignedIn] = useState(false)
+  const auth = getAuth(app);
+
+  const [isSignedIn, setIsSignedIn] = useState(
+    auth.currentUser ? true : false
+  );
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setIsSignedIn(user ? true : false);
+    });
+  });
 
   return (
-    <View style={styles.container}>
-      <NavigationContainer>
-        <Stack.Navigator>
-        {isSignedIn? (
-          <>
-          {/* <NavigationContainer> */}
-            <Stack.Group>
 
-            <Stack.Screen name='Test' component={Test} />
-            <Stack.Screen name='HomeScreen' component={HomeScreen}/>
+    <ActionSheetProvider>
 
-            </Stack.Group>
-          {/* </NavigationContainer> */}
-          </>
-          ) : (
+        <NavigationContainer>
+          <Stack.Navigator>
+          {isSignedIn ? (
             <>
-            {/* <LoginScreen></LoginScreen> */}
-            {/* <NavigationContainer> */}
-              <Stack.Group screenOptions={{ headerShown: false }}>
+              <Stack.Group>
 
-              <Stack.Screen name='Login' component={LoginScreen}/>
-              <Stack.Screen name='Signup' component={SignupScreen}/>
+              <Stack.Screen name='HomeScreen' component={HomeScreen}/>
+              <Stack.Screen name='Test' component={Test} />
 
               </Stack.Group>
-            {/* </NavigationContainer> */}
             </>
-            
-          )
-        }
-        </Stack.Navigator>
-        <StatusBar style="auto"/>
-      </NavigationContainer>
-    </View>
+            ) : (
+              <>
+                <Stack.Group >
+
+                <Stack.Screen name='Login' component={LoginScreen}/>
+                <Stack.Screen name='Register' component={SignupScreen}/>
+
+                </Stack.Group>
+              </>
+              
+            )
+          }
+          </Stack.Navigator>
+          <StatusBar style="auto"/>
+        </NavigationContainer>
+
+    </ActionSheetProvider>
+
   );
 }
 
@@ -57,6 +71,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: Colors.snapgray,
+    backgroundColor: Colors.lightgray,
   },
 });

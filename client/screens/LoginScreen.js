@@ -8,15 +8,29 @@ import {
   
 import React, { useState } from "react";
 import Colors from "../constants/Colors";
-import { Link } from "@react-navigation/native";
+
+// import firebase from "@firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { app } from "../firebaseConfig";
 
 export default function LoginScreen({ navigation }) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const auth = getAuth(app);
+
+    const onPressLogin = async () => {
+      try {
+        await signInWithEmailAndPassword(auth, email, password)
+              .then(login_Success, login_Failed)
+      } catch (error) {
+        alert('Authentication error:', error.message);
+      }
+    };
+
     const login_Success = () => {
-        console.log("SUCCESS");
+        console.log("User signed in successfully!");
     };
 
     const login_Failed = () => {
@@ -45,9 +59,7 @@ export default function LoginScreen({ navigation }) {
 
         <Pressable
           style={[styles.buttonContainer, styles.loginButton]}
-          onPress={() => {
-            alert('You press the Login Button!')
-          }}
+          onPress={onPressLogin}
         >
           <Text style={styles.loginText}>Login</Text>
         </Pressable>
@@ -55,7 +67,7 @@ export default function LoginScreen({ navigation }) {
         <Pressable
           style={styles.buttonContainer}
           onPress={() => {
-            navigation.navigate('Signup')
+            navigation.navigate('Register')
           }}
         >
           <Text style={styles.btnText}>Register</Text>
@@ -68,7 +80,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: "center",
-      backgroundColor: Colors.snapgray,
+      backgroundColor: Colors.lightgray,
       alignItems: "center",
       paddingBottom: 100,
     },
@@ -82,7 +94,6 @@ const styles = StyleSheet.create({
     inputContainer: {
       borderBottomColor: "#F5FCFF",
       backgroundColor: "#FFFFFF",
-      borderBottomWidth: 1,
       borderBottomWidth: 1,
       width: 300,
       height: 45,

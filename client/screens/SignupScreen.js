@@ -5,14 +5,65 @@ import {
     Pressable,
     StyleSheet,
   } from "react-native";
-  import Colors from "../constants/Colors";
-  import React, { useState } from "react";
+import React, { useState } from "react";
+
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from '@firebase/auth';
+
+import { app } from "../firebaseConfig";
   
   export default function SignupScreen() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [name, setName] = useState("");
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+
+    const auth = getAuth(app);
+    const onPressCreate = async () => {
+      try {
+            await createUserWithEmailAndPassword(auth, email, password)
+                  .then(onSuccess, onFailure)
+      } catch (error) {
+        console.log('Authentication error:', error.message);
+      }
+    };
+
+    const onSuccess = () => {
+      console.log("User created successfully!");
+
+      updateProfile(auth.currentUser, {displayName: name})
+      .then(function () {
+        console.log("User info successfully updated!");
+      }, function (error) {
+        console.error("Error updating user info: ", error);
+      });
+
+    //   var curr_user = userCredential.user;
+
+      // curr_user.updateProfile({
+      //   displayName: "Hello World!",
+      // }).then(function () {
+      //   console.log("User info successfully updated!");
+      // }, function (error) {
+      //   console.error("Error updating user info: ", error);
+      // });
   
+      // // Update user info in "Users" collection
+      // db.collection("Users")
+      //   .doc(curr_user.uid)
+      //   .set(
+      //     {
+      //       email: email,
+      //       displayName: name,
+      //     },
+      //     { merge: true }
+      //   )
+      //   .then(() => {
+      //     console.log("User info successfully updated!");
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error updating user info: ", error);
+      //   });
+    };
+
     const onFailure = () => {
       alert("Sign up failure. Please try again.");
     };
@@ -52,7 +103,7 @@ import {
   
         <Pressable
           style={[styles.buttonContainer, styles.signupButton]}
-          onPress={() => alert('Button is pressed')}
+          onPress={onPressCreate}
         >
           <Text style={styles.signupText}>Sign up</Text>
         </Pressable>
@@ -65,7 +116,6 @@ import {
       flex: 1,
       alignItems: "center",
       paddingTop: 180,
-      backgroundColor: Colors.snapyellow,
     },
     imageContainer: {
       width: 300,
@@ -102,7 +152,7 @@ import {
       backgroundColor: "transparent",
     },
     signupButton: {
-      backgroundColor: Colors.snapblue,
+      backgroundColor: "blue",
     },
     signupText: {
       color: "white",
