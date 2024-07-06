@@ -2,7 +2,7 @@ const express = require("express");
 
 const { MongoClient } = require("mongodb");
 
-const mongoURI = "mongodb+srv://venus:SEatwWmgzcwcQY5I@cluster0.c7mjto2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const mongoURI = "";
 
 // We create a new instance of the MongoClient
 const client = new MongoClient(mongoURI);
