@@ -9,11 +9,12 @@ import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { app } from './firebaseConfig';
 
-import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeScreen';
-import Test from './screens/Test'
+import BottomTabNavigator from './navigation/BottomTabNavigator';
 import Colors from './constants/Colors';
+
+import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 const Stack = createStackNavigator();
 
@@ -36,13 +37,13 @@ export default function App() {
     <ActionSheetProvider>
 
         <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator initialRouteName="Tabs" presentation="card">
           {isSignedIn ? (
             <>
               <Stack.Group>
 
-              <Stack.Screen name='HomeScreen' component={HomeScreen}/>
-              <Stack.Screen name='Test' component={Test} />
+              <Stack.Screen name='Tabs' component={BottomTabNavigator} options={{ headerShown: false }}/>
+              <Stack.Screen name='Profile' component={ProfileScreen}/>
 
               </Stack.Group>
             </>

@@ -35,33 +35,6 @@ import { app } from "../firebaseConfig";
       }, function (error) {
         console.error("Error updating user info: ", error);
       });
-
-    //   var curr_user = userCredential.user;
-
-      // curr_user.updateProfile({
-      //   displayName: "Hello World!",
-      // }).then(function () {
-      //   console.log("User info successfully updated!");
-      // }, function (error) {
-      //   console.error("Error updating user info: ", error);
-      // });
-  
-      // // Update user info in "Users" collection
-      // db.collection("Users")
-      //   .doc(curr_user.uid)
-      //   .set(
-      //     {
-      //       email: email,
-      //       displayName: name,
-      //     },
-      //     { merge: true }
-      //   )
-      //   .then(() => {
-      //     console.log("User info successfully updated!");
-      //   })
-      //   .catch((error) => {
-      //     console.error("Error updating user info: ", error);
-      //   });
     };
 
     const onFailure = () => {

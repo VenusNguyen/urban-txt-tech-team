@@ -14,6 +14,7 @@ const colors = {
   background: "#1F0808",
   clear: "rgba(0,0,0,0)",
   lightgray: "#ececec",
+  darkgray: "#a9a9a9"
 };
 
 export default colors;
