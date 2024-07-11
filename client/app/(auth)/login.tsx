@@ -23,12 +23,12 @@ export default function LoginScreen() {
     const router = useRouter();
 
     const onPressLogin = async () => {
-        try {
-            await signInWithEmailAndPassword(auth, email, password)
-                .then(login_Success, login_Failed);
-        } catch (error: any) {
-            console.log('Login failed: ' + error.message);
-        }
+      try {
+          await signInWithEmailAndPassword(auth, email, password)
+              .then(login_Success, login_Failed);
+      } catch (error: any) {
+          console.log('Login failed: ' + error.message);
+      }
     };
 
     const login_Success = () => {

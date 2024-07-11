@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function HomeScreen() {
+export default function TestScreen() {
 
 
     return (
       <View style={styles.container}>
-        <Text>This is HomeScreen</Text>
+        <Text>This is TestScreen</Text>
       </View>
     );
 }
