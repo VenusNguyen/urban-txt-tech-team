@@ -47,6 +47,20 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
           ),
+          headerRight: () => (
+            <Pressable
+                onPress={() => {
+                    router.push('screens/profile');
+                }}
+            >
+                <Ionicons
+                    name={"reorder-three-sharp"}
+                    size={35}
+                    style={{ marginRight: 5 }}
+                    color={Colors.darkgray}
+                />
+            </Pressable>
+          ),
         }}
       />
     </Tabs>
