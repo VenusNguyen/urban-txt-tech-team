@@ -1,24 +1,18 @@
-import React from "react";
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 
-export default function HomeScreen({ navigation }) {
+import Card from '../components/Post';
+
+export default function HomeScreen() {
 
 
     return (
-      <View style={styles.container}>
-        <Text>This is HomeScreen</Text>
-
-        
-
-      </View>
+      <ScrollView>
+        <Card />
+      </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
+
   });
   
