@@ -12,7 +12,7 @@ import { Colors } from "../../constants/Colors";
 import { Link, useNavigation, useRouter } from "expo-router";
 
 import { signInWithEmailAndPassword } from "@firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../core/firebase";
 
 export default function LoginScreen() {
 

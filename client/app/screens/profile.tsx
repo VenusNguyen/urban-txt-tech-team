@@ -2,7 +2,7 @@ import { View, Text, Pressable, Image, StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
 
 import { signOut } from '@firebase/auth';
-import { auth } from '../../firebase';
+import { auth } from '../../core/firebase';
 import { useRouter } from 'expo-router';
 
 export default function ProfileScreen() {

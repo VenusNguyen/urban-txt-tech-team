@@ -9,7 +9,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigation } from "expo-router";
 
 import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth';
-import { auth } from "../../firebase";
+import { auth } from "../../core/firebase";
 
 export default function SignupScreen() {
     const [email, setEmail] = useState('');

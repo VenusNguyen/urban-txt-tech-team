@@ -11,8 +11,6 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
 
-  const router = useRouter();
-
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
